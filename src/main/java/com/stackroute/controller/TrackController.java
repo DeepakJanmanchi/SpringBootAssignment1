@@ -1,6 +1,7 @@
 package com.stackroute.controller;
 
 import com.stackroute.domain.Track;
+import com.stackroute.exceptions.TrackAlreadyExistsException;
 import com.stackroute.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class TrackController {
         trackService.saveTrack(track);
         responseEntity = new ResponseEntity<String>("Successfully Created", HttpStatus.CREATED);
 
-    }catch (Exception ex){
+    }catch (TrackAlreadyExistsException ex){
         responseEntity = new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
     }
     return responseEntity;
